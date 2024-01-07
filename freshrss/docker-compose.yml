@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  freshrss:
+    container_name: freshrss
+    image: freshrss/freshrss:latest
+    hostname: freshrss
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - /volume1/docker/freshrss/data:/var/www/FreshRSS/data:rw
+      - /volume1/docker/freshrss/extensions:/var/www/FreshRSS/extensions:rw
+    restart: always
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - TZ=Europe/Paris
+      - COPY_LOG_TO_SYSLOG=On
+      - COPY_SYSLOG_TO_STDERR=On
+      - CRON_MIN=10,40
+      - FRESHRSS_ENV=production
+      - LISTEN=80
+      - PUID=${PUID}
+      - PGID=${PGID}
+    network_mode: bridge
+    ports:
+      - "10055:80/tcp"

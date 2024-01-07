@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  gogs:
+    container_name: gogs
+    image: gogs/gogs:latest
+    volumes:
+      - /volume1/docker/gogs/data:/data:rw
+    restart: always
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - GOGS_CUSTOM=/data/gogs
+    network_mode: bridge
+    ports:
+      - "${SSH_PORT}:${SSH_PORT}/tcp"
+      - "10050:3000/tcp"
+    deploy:
+      resources:
+        limits:
+          memory: 256M

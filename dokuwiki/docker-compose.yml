@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  dokuwiki:
+    container_name: dokuwiki
+    image: linuxserver/dokuwiki:latest
+    volumes:
+      - /volume1/docker/dokuwiki/data:/config:rw
+    restart: always
+    environment:
+      - PATH=/lsiopy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - PS1=$(whoami)@$(hostname):$(pwd)\$
+      - HOME=/root
+      - TERM=xterm
+      - S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0
+      - S6_VERBOSITY=1
+      - S6_STAGE2_HOOK=/docker-mods
+      - VIRTUAL_ENV=/lsiopy
+      - LSIO_FIRST_PARTY=true
+      - TZ=Europe/Paris
+      - PUID=1033
+      - PGID=100
+    network_mode: bridge
+    ports:
+      - "10080:80/tcp"
