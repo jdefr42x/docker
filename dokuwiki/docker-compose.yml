@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   dokuwiki:
@@ -18,8 +18,8 @@ services:
       - VIRTUAL_ENV=/lsiopy
       - LSIO_FIRST_PARTY=true
       - TZ=Europe/Paris
-      - PUID=1033
-      - PGID=100
+      - PUID=${PUID}
+      - PGID=${PGID}
     network_mode: bridge
     ports:
-      - "10080:80/tcp"
+      - "10080:80"

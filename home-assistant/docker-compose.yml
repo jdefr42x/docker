@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/home-assistant:stable
+    volumes:
+      - ./config:/config:rw
+    environment:
+      - TZ=Europe/Paris
+      - PUID=1036
+      - PGID=100
+    restart: on-failure:5
+    network_mode: bridge
+    ports:
+      - 10200:8123/tcp
